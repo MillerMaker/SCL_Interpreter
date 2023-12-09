@@ -1,0 +1,111 @@
+Cohen's SCL Grammar :) 
+
+Author:   Cohen Miller
+Class:   CS 4308/W02
+Term:  	 Fall 2023
+Assignment:  Project-Deliverable 2
+
+This is the grammar that I will be using to implement the SCL scanner, parser, and interpreter. 
+It is derived from Jose Garrido's SCL grammar. This grammar includes everything necessary to interpret and execute
+the welcome.scl file, and the sample.scl file. 
+
+--------------------------------------------------      Before Function        -----------------------------------------------------
+
+
+start : imports symbols forward_refs specifications globals implementations
+      ;
+imports : 
+	: IMPORT QUOTES IDENTIFIER QUOTES
+	;
+implement : IMPLEMENTATIONS FUNCTION func_main IS const_var_struct
+                      PBEGIN pactions  ENDFUN IDENTIFIER 
+          ;
+func_main : IDENTIFIER
+          | MAIN
+          ;
+
+
+---------------------------------------------------------- - Variables ---------------------------------------------------------------
+const_var_struct : const_dec var_dec struct_dec
+                 ;
+const_dec :
+          | CONSTANTS data_declarations
+          ;
+var_dec : VARIABLES data_declarations
+        ;
+struct_dec :
+           | STRUCT data_declarations
+           ;
+data_declarations: data_declaration;
+		 | data_declaration data_declarations; 
+
+data_declaration : IDENTIFIER OF TYPE data_type 
+                 ;
+		
+data_type : TUNSIGNED
+          | CHAR 
+		  | INTEGER
+		  | MVOID
+		  | DOUBLE
+		  | LONG
+		  | SHORT
+		  | FLOAT
+		  | REAL
+		  | TSTRING
+		  | TBOOL
+		  | TBYTE
+		  ;
+----------------------------------------------------------------  Actions  ------------------------------------------------------------
+pactions : action_def
+         | pactions action_def
+         ;
+
+action_def : SET IDENTIFIER EQUOP expr
+           | INPUT IDENTIFIER
+           | DISPLAY pvar_value_list
+           | DISPLAYN pvar_value_list   <--- newline display
+		   | RETURN expr
+		   | IF pcondition THEN pactions ptest_elsif 
+		          opt_else ENDIF
+		   | ENDFUN IDENTIFIER
+pvar_value_list : expr
+                | pvar_value_list COMMA expr 
+                ;	
+
+------------------------------------------------------------------- PreConditions -----------------------------------------------------
+pcondition : pcond1 OR pcond1
+           | pcond1 AND pcond1
+		   | pcond1
+		   ;
+pcond1 : NOT pcond2
+       | pcond2
+       ;
+pcond2 : LP pcondition RP
+       | expr RELOP expr
+	   | expr EQOP expr
+	   | expr eq_v expr
+	   | expr opt_not true_false
+	   | element
+	   ;
+true_false : MTRUE
+           | MFALSE
+           ;		   
+eq_v : EQUALS
+     | GREATERT
+	 | LESST
+     | GREATERT OR EQUAL
+     | LESST OR EQUAL
+     ;
+opt_not :
+        | NOT
+        ;		
+ 
+-----------------------------------------------------------------         EXPR       -----------------------------------------------------
+expr : term PLUS term
+     | term MINUS term
+	 ;
+term : IDENTIFIER
+     | IDENTIFIER STAR IDENTIFIER
+     | IDENTIFIER DIVOP IDENTIFIER
+	 ;
+

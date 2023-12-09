@@ -1,0 +1,18 @@
+
+import "scl.h"
+implementations /* multi-line-comment */
+function main is
+variables
+    define x of type double   // a variable declaration 
+	define t of type double   // time of the second event
+	define pt of type double
+begin   
+    display "Hello ",  "World!"
+    set x = 45.95    
+    set t = 45.95 + 2.55
+    set pt = 10.00+ 5.00 * 10.00
+    display "The value of x:", x
+    display "The value of t:", t
+    display "The value of pt:", pt
+    exit
+endfun main

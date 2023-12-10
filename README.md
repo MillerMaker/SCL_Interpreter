@@ -14,7 +14,7 @@ The result of this research project is an entire language processor which  is lo
 parser, and scanner components. This processor is built entirely in Python. 
 
 ### Description of Solution
-This interpreter was developed using the grammar outlined in the "Cohen’s_SCL_Grammar.txt" file in the project folder. The parser
+This interpreter was developed using the grammar outlined in the "Cohen’s_SCL_Grammar.txt" file in the project folder. 
 The final solution has six unique classes. These classes are described in the CS4308W02_Cohen_Miller_Deliverable3.docx file.
 A sample output demonstration is available in the project folder. 
 

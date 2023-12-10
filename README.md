@@ -1,4 +1,4 @@
-# SCL_Project_7
+# SCL_Interpreter
 Kennesaw State University College of Computing and Software Engineering
 Class: CS 4208, Prof. Sarah North
 Author: Cohen Miller 
